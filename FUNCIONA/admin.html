@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9U66-JGM82xs0sSYzfxHYQB6qKpRHkfM",
+            authDomain: "cotizador-pbimprenta.firebaseapp.com",
+            projectId: "cotizador-pbimprenta",
+            storageBucket: "cotizador-pbimprenta.appspot.com",
+            messagingSenderId: "415376792358",
+            appId: "1:415376792358:web:05e5d152bb04d4edae3fe7",
+            measurementId: "G-8FT426TJ18"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth();
+
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.db = db;
+                document.dispatchEvent(new Event('firebaseReady'));
+            } else {
+                window.location.href = "login.html";
+            }
+        });
+
+        window.cerrarSesion = async () => {
+            await signOut(auth);
+            window.location.href = "login.html";
+        };
+    </script>
+</head>
+<body>
+    <h1>Panel de Administración</h1>
+    <button onclick="cerrarSesion()" class="cerrar-sesion">Cerrar Sesión</button>
+    <button onclick="abrirDialogoProducto()">Agregar Producto</button>
+    <button onclick="abrirDialogoIVA()">Configurar IVA</button>
+    <div id="productos-container"></div>
+
+    <div id="dialogo-producto" class="dialogo">
+        <div class="dialogo-contenido">
+            <span class="cerrar" onclick="cerrarDialogo('dialogo-producto')">&times;</span>
+            <h2 id="dialogo-producto-titulo">Agregar/Actualizar Producto</h2>
+            <label for="dialogo-producto-nombre">Nombre del producto:</label>
+            <input type="text" id="dialogo-producto-nombre">
+            <label for="dialogo-producto-categoria">Categoría del producto:</label>
+            <input type="text" id="dialogo-producto-categoria">
+            <button id="dialogo-producto-guardar">Guardar</button>
+        </div>
+    </div>
+
+    <div id="dialogo-subproducto" class="dialogo">
+        <div class="dialogo-contenido">
+            <span class="cerrar" onclick="cerrarDialogo('dialogo-subproducto')">&times;</span>
+            <h2 id="dialogo-subproducto-titulo">Agregar/Actualizar Subproducto</h2>
+            <label for="dialogo-subproducto-nombre">Nombre del subproducto:</label>
+            <input type="text" id="dialogo-subproducto-nombre">
+            <button id="dialogo-subproducto-guardar">Guardar</button>
+        </div>
+    </div>
+
+    <div id="dialogo-iva" class="dialogo">
+        <div class="dialogo-contenido">
+            <span class="cerrar" onclick="cerrarDialogo('dialogo-iva')">&times;</span>
+            <h2>Configurar IVA</h2>
+            <label for="iva-valor">Valor del IVA (%):</label>
+            <input type="number" id="iva-valor" step="0.01">
+            <button id="guardar-iva-btn">Guardar</button>
+        </div>
+    </div>
+    <script type="module" src="js/admin.js"></script>
+</body>
+</html>

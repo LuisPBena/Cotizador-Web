@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nombre del Subproducto</title>
+    <link rel="stylesheet" href="../css/subproducto_template.css">
+</head>
+<body>
+    <h1>Nombre del Subproducto</h1>
+    <form id="formulario-cotizacion">
+        <!-- Aquí van los campos dinámicos -->
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Aquí cargar los campos dinámicos desde Firebase
+            const subproductoId = "ID_DEL_SUBPRODUCTO"; // Reemplaza con el ID del subproducto
+            const db = getFirestore();
+            const subproductoDoc = await getDoc(doc(db, "subproductos", subproductoId));
+            const subproductoData = subproductoDoc.data();
+
+            const formulario = document.getElementById("formulario-cotizacion");
+            subproductoData.campos.forEach(campo => {
+                const campoDiv = document.createElement("div");
+                campoDiv.className = "campo";
+
+                const label = document.createElement("label");
+                label.textContent = campo.nombre;
+
+                const select = document.createElement("select");
+                campo.valores.forEach(valor => {
+                    const option = document.createElement("option");
+                    option.value = valor;
+                    option.textContent = valor;
+                    select.appendChild(option);
+                });
+
+                campoDiv.appendChild(label);
+                campoDiv.appendChild(select);
+                formulario.appendChild(campoDiv);
+            });
+        });
+    </script>
+</body>
+</html>

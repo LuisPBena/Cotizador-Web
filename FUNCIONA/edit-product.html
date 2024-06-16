@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Producto - Cotizador</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <header>
+    <h1>Editar Producto</h1>
+  </header>
+
+  <main>
+    <section>
+      <h2 id="product-name"></h2>
+      <img id="product-image" src="" alt="imagen">
+    </section>
+
+    <section>
+      <h2>Agregar Campo Personalizado</h2>
+      <form onsubmit="addCustomField(); return false;">
+        <label for="field-name">Nombre del Campo:</label>
+        <input type="text" id="field-name" required>
+        <label for="field-type">Tipo:</label>
+        <select id="field-type" required>
+          <option value="texto">Texto</option>
+          <option value="numero">Número</option>
+          <option value="opciones">Opciones</option>
+        </select>
+        <label for="field-values">Valores (para opciones, separados por comas):</label>
+        <input type="text" id="field-values">
+        <button type="submit">Agregar Campo</button>
+        <button type="button" onclick="clearFieldForm()">Limpiar Campos</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Campos Personalizados Existentes</h2>
+      <div id="fields-list"></div>
+    </section>
+  </main>
+
+  <footer>
+    <!-- Aquí puedes colocar información adicional o enlaces -->
+  </footer>
+  <script src="js/editar-producto.js"></script>
+</body>
+</html>

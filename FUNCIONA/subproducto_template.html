@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="subproducto-title">Subproducto</title>
+    <link rel="stylesheet" href="css/subproducto_template.css">
+</head>
+<body>
+    <button onclick="volverAtras()" class="volver-atras">Volver atrás</button>
+    <div class="subproducto-nombre-container">
+        <label for="subproducto-nombre-input">Nombre del subproducto:</label>
+        <input type="text" id="subproducto-nombre-input">
+        <button id="guardar-subproducto">Guardar</button>
+    </div>
+    <div class="container">
+        <div class="panel" id="campos-panel">
+            <h2>Campos del Subproducto</h2>
+            <div id="subproducto-campos"></div>
+            <button id="guardar-orden">Guardar Orden</button>
+        </div>
+        <div class="panel">
+            <h2>Agregar Nuevo Campo</h2>
+            <div class="campo-form">
+                <label for="nuevo-campo-nombre">Nombre del campo:</label>
+                <input type="text" id="nuevo-campo-nombre">
+                
+                <label for="nuevo-campo-tipo">Tipo del campo:</label>
+                <select id="nuevo-campo-tipo">
+                    <option value="select">SELECCIONE UNA OPCION</option>
+                    <option value="texto">Texto</option>
+                    <option value="numero">Número</option>
+                    <option value="opciones">Opciones</option>
+                    <option value="cantidad">Cantidad</option>
+                </select>
+                
+                <div id="valores-campo-container">
+                    <label for="nuevo-campo-valores">Valores del campo:</label>
+                    <input type="text" id="nuevo-campo-valores">
+                </div>
+                
+                <div id="precio-campo-container">
+                    <label for="precio-campo">Precio del campo:</label>
+                    <input type="number" id="precio-campo">
+                </div>
+                
+                <div id="opciones-container" style="display: none;">
+                    <button id="agregar-opcion">Agregar Opción</button>
+                </div>
+                
+                <label for="tipo-calculo">Tipo de cálculo:</label>
+                <select id="tipo-calculo">
+                    <option value="suma">Suma</option>
+                    <option value="resta">Resta</option>
+                    <option value="multiplicacion">Multiplicación</option>
+                    <option value="division">División</option>
+                    <option value="metros-cuadrados">Metros Cuadrados</option>
+                </select>
+                
+                <div id="dimensiones-container" style="display: none;">
+                    <label for="ancho-campo">Ancho (metros):</label>
+                    <input type="number" id="ancho-campo" placeholder="Ancho en metros">
+                    
+                    <label for="alto-campo">Alto (metros):</label>
+                    <input type="number" id="alto-campo" placeholder="Alto en metros">
+                </div>
+                
+                <button id="agregar-campo">Agregar Campo</button>
+            </div>
+            <p id="mensaje"></p>
+        </div>
+    </div>
+    
+    <div id="vista-trabajador">
+        <h2>Vista del Trabajador</h2>
+        <div id="vista-trabajador-campos"></div>
+        <div id="total-campo">
+            <label>Total:</label>
+            <span id="total-valor">0</span>
+        </div>
+        <div>
+            <label for="aplicar-iva">Aplicar IVA al total:</label>
+            <input type="checkbox" id="aplicar-iva">
+        </div>
+    </div>
+    
+    <!-- Dialogo para editar -->
+    <div id="dialogo-editar" class="dialogo">
+        <div class="dialogo-contenido">
+            <span class="cerrar" onclick="cerrarDialogo('dialogo-editar')">&times;</span>
+            <h2>Actualizar Campo</h2>
+            <label for="editar-campo-nombre">Nombre del campo:</label>
+            <input type="text" id="editar-campo-nombre">
+            
+            <label for="editar-campo-tipo">Tipo del campo:</label>
+            <select id="editar-campo-tipo">
+                <option value="texto">Texto</option>
+                <option value="numero">Número</option>
+                <option value="opciones">Opciones</option>
+                <option value="cantidad">Cantidad</option>
+            </select>
+
+            <label for="editar-campo-calculo">Tipo de cálculo:</label>
+            <select id="editar-campo-calculo">
+                <option value="suma">Suma</option>
+                <option value="resta">Resta</option>
+                <option value="multiplicacion">Multiplicación</option>
+                <option value="division">División</option>
+                <option value="metros-cuadrados">Metros Cuadrados</option>
+            </select>
+
+            <div id="editar-valores-container" class="valores-precios-container"></div>
+            
+            <button id="actualizar-campo-btn">Actualizar Campo</button>
+        </div>
+    </div>
+
+    <!-- Dialogo para eliminar -->
+    <div id="dialogo-eliminar" class="dialogo">
+        <div class="dialogo-contenido">
+            <span class="cerrar" onclick="cerrarDialogo('dialogo-eliminar')">&times;</span>
+            <h2>Eliminar Campo</h2>
+            <p>¿Estás seguro de que deseas eliminar este campo?</p>
+            <button id="confirmar-eliminar-btn">Eliminar</button>
+            <button onclick="cerrarDialogo('dialogo-eliminar')">Cancelar</button>
+        </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script type="module" src="js/subproducto_template.js"></script>
+</body>
+</html>

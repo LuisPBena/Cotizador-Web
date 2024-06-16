@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9U66-JGM82xs0sSYzfxHYQB6qKpRHkfM",
+            authDomain: "cotizador-pbimprenta.firebaseapp.com",
+            projectId: "cotizador-pbimprenta",
+            storageBucket: "cotizador-pbimprenta.appspot.com",
+            messagingSenderId: "415376792358",
+            appId: "1:415376792358:web:05e5d152bb04d4edae3fe7",
+            measurementId: "G-8FT426TJ18"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth();
+        const db = getFirestore(app);
+
+        async function login(event) {
+            event.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                const docRef = doc(db, "users", user.uid);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const userData = docSnap.data();
+                    if (userData.role === 'admin') {
+                        window.location.href = "admin.html";
+                    } else if (userData.role === 'worker') {
+                        window.location.href = "cotizador.html";
+                    } else {
+                        console.error("User role not recognized.");
+                    }
+                } else {
+                    console.error("No such document!");
+                }
+            } catch (error) {
+                console.error("Error signing in: ", error);
+                alert("Error signing in: " + error.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('login-form').addEventListener('submit', login);
+        });
+    </script>
+</head>
+<body>
+    <form id="login-form">
+        <h1>Login</h1>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" required>
+        <button type="submit">Login</button>
+    </form>
+</body>
+</html>

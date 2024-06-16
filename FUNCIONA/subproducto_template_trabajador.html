@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subproducto Trabajador</title>
+    <link rel="stylesheet" href="css/subproducto_template_trabajador.css">
+</head>
+<body>
+    <button onclick="volverAtras()" class="volver-atras">Volver atrás</button>
+    <div id="subproducto-nombre" style="font-weight: bold; font-size: 1.5em; margin-top: 20px;"></div>
+    <div id="vista-trabajador">
+        <div id="vista-trabajador-campos"></div>
+        <div id="total-campo">
+            <label>Total:</label>
+            <span id="total-valor">0</span>
+        </div>
+        <div>
+            <label for="aplicar-iva">Aplicar IVA al total:</label>
+            <input type="checkbox" id="aplicar-iva">
+        </div>
+        <button id="generar-cotizacion" class="generar-cotizacion">Generar Cotización</button>
+        <button id="generar-cotizacion-detallada-btn" class="generar-cotizacion">Generar Cotización Detallada</button>
+    </div>
+    <script type="module" src="js/subproducto_template_trabajador.js"></script>
+</body>
+</html>
